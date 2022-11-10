@@ -27,15 +27,15 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef QTI_VIBRATOR_EFFECT_STREAM_H
-#define QTI_VIBRATOR_EFFECT_STREAM_H
+#ifndef XIAOMI_VIBRATOR_EFFECT_STREAM_H
+#define XIAOMI_VIBRATOR_EFFECT_STREAM_H
 #include <sys/types.h>
 
 struct effect_stream {
     uint32_t   	    effect_id;
     uint32_t        length;
     uint32_t        play_rate_hz;
-    const int8_t    *data;
+    const int16_t   *data;
 };
 
 const struct effect_stream *get_effect_stream(uint32_t effect_id);

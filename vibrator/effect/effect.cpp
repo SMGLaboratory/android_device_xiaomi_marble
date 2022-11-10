@@ -26,13 +26,9 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * Changes from Qualcomm Innovation Center are provided under the following license:
- * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
- * SPDX-License-Identifier: BSD-3-Clause-Clear
  */
 
-#define LOG_TAG "libqtivibratoreffect.xiaomi"
+#define LOG_TAG "libxiaomivibratoreffect"
 
 #include <iostream>
 #include <fstream>
@@ -43,85 +39,42 @@
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(*(a)))
 
-static const int8_t primitive_0[] = {
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-};
-
-static const int8_t primitive_1[] = {
-    17,  34,  50,  65,  79,  92,  103, 112, 119, 124,
-    127, 127, 126, 122, 116, 108, 98,  86,  73,  58,
-    42,  26,  9,   -8,  -25, -41, -57, -72, -85, -97,
-    -108, -116, -122, -126, -127, -127, -125, -120,
-    -113, -104, -93,  -80, -66, -51, -35, -18, -1,
-};
-
-static const int8_t primitive_2[] = {
-    17,  34,  50,  65,  79,  92,  103, 112, 119, 124,
-    127, 127, 126, 122, 116, 108, 98,  86,  73,  58,
-    42,  26,  9,   -8,  -25, -41, -57, -72, -85, -97,
-    -108, -116, -122, -126, -127, -127, -125, -120,
-    -113, -104, -93,  -80, -66, -51, -35, -18, -1,
-};
-
 static struct effect_stream effects[] = {
     {
         .effect_id = 0,
         .data = 0,
         .length = 0,
-        .play_rate_hz = 24000,
+        .play_rate_hz = 48000,
     },
     {
         .effect_id = 1,
         .data = 0,
         .length = 0,
-        .play_rate_hz = 24000,
+        .play_rate_hz = 48000,
     },
     {
         .effect_id = 2,
         .data = 0,
         .length = 0,
-        .play_rate_hz = 24000,
+        .play_rate_hz = 48000,
     },
     {
         .effect_id = 3,
         .data = 0,
         .length = 0,
-        .play_rate_hz = 24000,
+        .play_rate_hz = 48000,
     },
     {
         .effect_id = 4,
         .data = 0,
         .length = 0,
-        .play_rate_hz = 24000,
+        .play_rate_hz = 48000,
     },
     {
         .effect_id = 5,
         .data = 0,
         .length = 0,
-        .play_rate_hz = 24000,
-    },
-};
-
-static const struct effect_stream primitives[] = {
-    {
-        .effect_id = 0,
-        .data = primitive_0,
-        .length = ARRAY_SIZE(primitive_0),
-        .play_rate_hz = 8000,
-    },
-
-    {
-        .effect_id = 1,
-        .data = primitive_1,
-        .length = ARRAY_SIZE(primitive_1),
-        .play_rate_hz = 8000,
-    },
-
-    {
-        .effect_id = 2,
-        .data = primitive_2,
-        .length = ARRAY_SIZE(primitive_2),
-        .play_rate_hz = 8000,
+        .play_rate_hz = 48000,
     },
 };
 
@@ -136,45 +89,7 @@ static const std::string fifo_data_paths[] = {
     "/vendor/firmware/5_heavyClick_P_RTP.bin",
 };
 
-int create_double_click(effect_stream *effect) {
-    const char *path = fifo_data_paths[0].c_str();
-    std::ifstream data;
-    struct stat file_stat;
-    int size = 0;
-    int rc = stat(path, &file_stat);
-
-    if (rc) {
-        ALOGE("Could not open %s", path);
-        return rc;
-    } else {
-        size = file_stat.st_size;
-        // First and last parts of the array contain the click effect, with
-        // blank in between, to stimulate double click
-        effect->length = size * 5;
-    }
-
-    // Create a persistent 8-bit int array which contains the fifo data, one
-    // slot of the array contains one byte of the fifo data from vendor.
-    int8_t *custom_data = new int8_t[effect->length];
-
-    data.open(path, std::ios::in | std::ios::binary);
-    data.read(reinterpret_cast<char *>(custom_data), size);
-    data.close();
-
-    for (int i = 0; i < size; i++) {
-        // Copy the effect onto last part
-        custom_data[size * 4 + i] = custom_data[i];
-        // Blank effect in between
-        custom_data[size + i] = 0;
-        custom_data[size * 2 + i] = 0;
-        custom_data[size * 3 + i] = 0;
-    }
-
-    effect->data = custom_data;
-
-    return rc;
-}
-
+// Function to parse custom fifo data from vendor
 int parse_custom_data(effect_stream *effect) {
     const char *path = fifo_data_paths[effect->effect_id].c_str();
     std::ifstream data;
@@ -185,15 +100,6 @@ int parse_custom_data(effect_stream *effect) {
             effect->effect_id, path);
 
     rc = stat(path, &file_stat);
-    if (rc && effect->effect_id != 0) {
-        if (effect->effect_id == 1 /* double click */) {
-            ALOGI("Could not open %s, attempting to create from click", path);
-            return create_double_click(effect);
-        }
-        ALOGI("Could not open %s, falling back to click", path);
-        path = fifo_data_paths[0].c_str();
-        rc = stat(path, &file_stat);
-    }
     if (!rc) {
         effect->length = file_stat.st_size;
     } else {
@@ -201,9 +107,9 @@ int parse_custom_data(effect_stream *effect) {
         return rc;
     }
 
-    // Create a persistent 8-bit int array which contains the fifo data, one
-    // slot of the array contains one byte of the fifo data from vendor.
-    int8_t *custom_data = new int8_t[effect->length];
+    // Create a persistent 16-bit int array which contains the fifo data, one
+    // slot of the array contains one 16-bit value of the fifo data from vendor.
+    int16_t *custom_data = new int16_t[effect->length/2];
 
     data.open(path, std::ios::in | std::ios::binary);
     data.read(reinterpret_cast<char *>(custom_data), effect->length);
@@ -218,22 +124,13 @@ const struct effect_stream *get_effect_stream(uint32_t effect_id)
 {
     int i;
 
-    if ((effect_id & 0x8000) != 0) {
-        effect_id = effect_id & 0x7fff;
-
-        for (i = 0; i < ARRAY_SIZE(primitives); i++) {
-            if (effect_id == primitives[i].effect_id)
-                return &primitives[i];
-        }
-    } else {
-        for (i = 0; i < ARRAY_SIZE(effects); i++) {
-            if (effect_id == effects[i].effect_id) {
-                if (effects[i].length == 0 && parse_custom_data(&effects[i])) {
-                    ALOGE("Could not get custom_data for effect %d", effects[i].effect_id);
-                    return NULL;
-                }
-                return &effects[i];
+    for (i = 0; i < ARRAY_SIZE(effects); i++) {
+        if (effect_id == effects[i].effect_id) {
+            if (effects[i].length == 0 && parse_custom_data(&effects[i])) {
+                ALOGE("Could not get custom_data for effect %d", effects[i].effect_id);
+                return NULL;
             }
+            return &effects[i];
         }
     }
 
