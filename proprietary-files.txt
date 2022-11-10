@@ -3528,6 +3528,17 @@ vendor/bin/vmmgr
 vendor/etc/init/vmmgr.rc
 vendor/etc/vmmgr.conf
 
+# Vibrator (Xiaomi)
+vendor/bin/hw/vendor.xiaomi.hardware.vibratorfeature.service
+vendor/etc/init/vendor.xiaomi.hardware.vibratorfeature.service.rc
+vendor/etc/init/vendor.xiaomi.hardware.vibratorfeature@1.0-service.rc
+vendor/etc/vintf/manifest/vendor.xiaomi.hardware.vibratorfeature.service.xml
+vendor/lib64/vendor.hardware.vibratorfeature.IVibratorExt-V1-ndk_platform.so
+vendor/lib64/vendor.xiaomi.hardware.vibratorfeature@1.0.so
+
+# Vibrator (Haptics)
+vendor/lib64/libaachaptics.so
+
 # VPP
 vendor/bin/hw/qconfigservice
 vendor/bin/vppservice
