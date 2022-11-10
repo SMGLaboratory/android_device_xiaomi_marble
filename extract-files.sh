@@ -190,6 +190,10 @@ function blob_fixup() {
     vendor/lib/libcodec2_vndk.stock.so)
         "${PATCHELF}" --set-soname "libcodec2_vndk.stock.so" "${2}"
         ;;
+    vendor/bin/hw/vendor.xiaomi.hardware.vibratorfeature.service)
+        "${PATCHELF}" --replace-needed "android.hardware.vibrator-V1-ndk_platform.so" "android.hardware.vibrator-V1-ndk.so" "${2}"
+        "${PATCHELF}" --replace-needed "libutils.so" "libutils-v32.so" "${2}"
+        ;;
     esac
 }
 
