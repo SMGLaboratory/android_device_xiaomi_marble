@@ -555,6 +555,7 @@ PRODUCT_PACKAGES += \
     init.qcom.post_boot.sh \
     init.qcom.rc \
     init.qcom.sh \
+    init.touch.rc \
     init.recovery.qcom.rc \
     init.target.rc \
     init.xiaomi.rc \

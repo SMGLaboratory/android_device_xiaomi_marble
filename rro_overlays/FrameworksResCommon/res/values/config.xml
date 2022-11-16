@@ -404,4 +404,7 @@
     <!-- Default component for QR code scanner -->
     <string name="config_defaultQrCodeComponent" translatable="false">com.google.android.gms/.mlkit.barcode.ui.PlatformBarcodeScanningActivityProxy</string>
 
+    <!-- Whether device supports increased touch sensitvity -->
+    <bool name="config_supportGloveMode">true</bool>
+
 </resources>
