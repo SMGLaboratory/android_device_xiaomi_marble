@@ -158,6 +158,10 @@ PRODUCT_PACKAGES += \
     camera.device@1.0-impl \
     libcamera2ndk_vendor \
     libgui_vendor \
+    libstdc++_vendor \
+    libc++_shared \
+    libcamera2ndk_vendor \
+    android.frameworks.stats@1.0.vendor \
     vendor.qti.hardware.camera.aon@1.0.vendor \
     vendor.qti.hardware.camera.postproc@1.0.vendor
 
