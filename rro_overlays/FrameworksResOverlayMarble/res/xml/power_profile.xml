@@ -20,22 +20,23 @@
     </array>
 
     <!-- Different CPU speeds as reported in
-         /sys/devices/system/cpu/cpu0/cpufreq/stats/scaling_available_frequencies -->
+         /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies -->
     <array name="cpu.core_speeds.cluster0">
-        <value>300000</value>
-        <value>441600</value>
-        <value>556800</value>
-        <value>691200</value>
-        <value>806400</value>
-        <value>940800</value>
-        <value>1056000</value>
-        <value>1132800</value>
-        <value>1228800</value>
-        <value>1324800</value>
-        <value>1440000</value>
-        <value>1555200</value>
-        <value>1670400</value>
-        <value>1804800</value>
+        <value>307200</value>
+        <value>403200</value>
+        <value>518400</value>
+        <value>614400</value>
+        <value>729600</value>
+        <value>844800</value>
+        <value>960000</value>
+        <value>1075200</value>
+        <value>1171200</value>
+        <value>1267200</value>
+        <value>1363200</value>
+        <value>1478400</value>
+        <value>1574400</value>
+        <value>1689600</value>
+        <value>1785600</value>
     </array>
 
     <!-- Additional power used by a CPU from cluster 0 when running at different
@@ -55,6 +56,11 @@
         <value>70.35</value>
         <value>74.82</value>
         <value>83.46</value>
+        <value>88</value>
+        <value>93.06</value>
+        <value>98.84</value>
+        <value>103.48</value>
+        <value>111.48</value>
     </array>
 
     <!-- Different CPU speeds as reported in
@@ -82,23 +88,23 @@
     <!-- Additional power used by a CPU from cluster 1 when running at different
          speeds. Currently this measurement also includes cluster cost. -->
     <array name="cpu.core_power.cluster1">
-        <value>84.90</value>
-        <value>92.04</value>
-        <value>101.83</value>
-        <value>109.03</value>
-        <value>113.68</value>
-        <value>127.64</value>
-        <value>141.26</value>
-        <value>144.84</value>
-        <value>158.94</value>
-        <value>169.63</value>
-        <value>185.72</value>
-        <value>203.80</value>
-        <value>217.59</value>
-        <value>234.69</value>
-        <value>256.87</value>
-        <value>274.66</value>
-        <value>308.38</value>
+        <value>79.16</value>
+        <value>89.5</value>
+        <value>98.7</value>
+        <value>108.7</value>
+        <value>118.16</value>
+        <value>128.74</value>
+        <value>142.38</value>
+        <value>155.82</value>
+        <value>173.82</value>
+        <value>189.78</value>
+        <value>218.52</value>
+        <value>241.16</value>
+        <value>288.52</value>
+        <value>325.84</value>
+        <value>365.68</value>
+        <value>409.62</value>
+        <value>440.62</value>
     </array>
     <array name="cpu.core_speeds.cluster2">
         <value>787200</value>
@@ -167,13 +173,13 @@
          application. Intended as a rough estimate for an application running a
          preview and capturing approximately 10 full-resolution pictures per
          minute. -->
-    <item name="camera.avg">522.54</item>
+    <item name="camera.avg">213.44</item>
 
     <!-- Additional power used when GPS is acquiring a signal -->
     <item name="gps.on">50.79</item>
 
     <!-- Additional power used when cellular radio is transmitting/receiving -->
-    <item name="radio.active">321.95</item>
+    <item name="radio.active">245.38</item>
 
     <!-- Additional power used when cellular radio is paging the tower -->
     <item name="radio.scanning">64.36</item>
@@ -213,7 +219,7 @@
         <value>.1</value>
         <value>1</value>
     </array>
-    <item name="bluetooth.active">15.34</item>
-    <item name="bluetooth.on">0.7</item>
+    <item name="bluetooth.active">11.38</item>
+    <item name="bluetooth.on">2.48</item>
     <item name="bluetooth.controller.voltage">3700</item>
 </device>
