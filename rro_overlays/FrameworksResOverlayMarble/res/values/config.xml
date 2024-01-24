@@ -756,4 +756,7 @@
 
     <!-- Should the pinner service pin the Home application? -->
     <bool name="config_pinnerHomeApp">false</bool>
+
+    <!-- The default vibration strength, must be between 1 and 255 inclusive. -->
+    <integer name="config_defaultVibrationAmplitude">128</integer>
 </resources>
