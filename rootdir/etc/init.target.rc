@@ -587,10 +587,6 @@ on post-fs-data
     chmod 0662 /dev/miev
     restorecon /dev/miev
 
-on property:sys.lmkd.memory.compact=1
-    setprop sys.lmkd.memory.compact 0
-    write /proc/sys/vm/compact_memory 1
-
 # Sync attribute volume between system and vendor
 on property:sys.volume.stream.music.device.speaker=*
     setprop vendor.volume.stream.music.device.speaker ${sys.volume.stream.music.device.speaker}
