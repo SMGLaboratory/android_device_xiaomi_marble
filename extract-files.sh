@@ -201,6 +201,9 @@ function blob_fixup() {
         "${PATCHELF}" --add-needed "libutils-v32.so" "${2}"
         "${PATCHELF}" --add-needed "libutils-shim.so" "${2}"
         ;;
+    vendor/bin/hw/vendor.qti.hardware.display.composer-service)
+        "${PATCHELF}" --replace-needed "libutils.so" "libutils-v32.so" "${2}"
+        ;;
     esac
 }
 
