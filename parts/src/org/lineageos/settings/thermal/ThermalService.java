@@ -103,15 +103,15 @@ public class ThermalService extends Service {
         @Override
         public void onTaskStackChanged() {
             try {
-                final RootTaskInfo info = mActivityTaskManager.getFocusedRootTaskInfo();
-                if (info == null || info.topActivity == null) {
-                    return;
-                }
-
-                String foregroundApp = info.topActivity.getPackageName();
-                if (!foregroundApp.equals(mPreviousApp)) {
-                    mThermalUtils.setThermalProfile(foregroundApp);
-                    mPreviousApp = foregroundApp;
+                final ActivityTaskManager.RootTaskInfo focusedTask =
+                        ActivityTaskManager.getService().getFocusedRootTaskInfo();
+                if (focusedTask != null && focusedTask.topActivity != null) {
+                    ComponentName taskComponentName = focusedTask.topActivity;
+                    String foregroundApp = taskComponentName.getPackageName();
+                    if (!foregroundApp.equals(mCurrentApp)) {
+                        mCurrentApp = foregroundApp;
+                        setThermalProfile();
+                    }
                 }
             } catch (Exception e) {}
         }
