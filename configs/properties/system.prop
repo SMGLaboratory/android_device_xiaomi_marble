@@ -80,18 +80,12 @@ persist.log.tag.b/223498680=S
 persist.log.tag.TrafficStats=S
 persist.log.tag.ContrastColorUtil=S
 
-# LMK props
-ro.lmk.use_minfree_levels=true
-
 # Open the first-in-first-out interface thread
 sys.use_fifo_ui=1
 
 # Radio VoNR Calling
 persist.radio.is_vonr_enabled_0=true
 persist.radio.is_vonr_enabled_1=true
-
-# MGLRU Config
-persist.device_config.mglru_native.lru_gen_config=all
 
 # Property to enable HWC for VDS
 debug.sf.enable_hwc_vds=1
