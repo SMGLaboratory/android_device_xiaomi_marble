@@ -163,6 +163,10 @@ on post-fs-data
     # Create directory for apps access via QTEEConnector
     mkdir /data/vendor/qtee 0770 system system
 
+    # Enable idle state listener
+    write /sys/class/drm/card0/device/idle_encoder_mask 1
+    write /sys/class/drm/card0/device/idle_timeout_ms 100
+
     # Turn on sleep modes
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
 
@@ -283,6 +287,11 @@ on post-fs-data
     write /data/vendor/radio/db_check_done 0
     chown radio radio /data/vendor/radio/db_check_done
     chmod 0660 /data/vendor/radio/db_check_done
+
+    # Set default schedTune value for foreground/top-app
+    write /dev/stune/foreground/schedtune.prefer_idle 1
+    write /dev/stune/top-app/schedtune.boost 10
+    write /dev/stune/top-app/schedtune.prefer_idle 1
 
     # qti-logkit data
     mkdir /data/vendor/qti-logkit/ 0771 system system
