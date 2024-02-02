@@ -5,9 +5,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/aosp_marble.mk
+    $(LOCAL_DIR)/pixelstar_marble.mk
 
 COMMON_LUNCH_CHOICES := \
-    aosp_marble-eng \
-    aosp_marble-userdebug \
-    aosp_marble-user
+    pixelstar_marble-eng \
+    pixelstar_marble-userdebug \
+    pixelstar_marble-user
