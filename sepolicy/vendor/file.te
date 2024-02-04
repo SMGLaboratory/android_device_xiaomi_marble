@@ -43,3 +43,6 @@ type thermal_data_file, data_file_type, file_type;
 
 # Touchfeature
 type sysfs_tp_fodstatus, fs_type, sysfs_type;
+
+# Vibrator
+type persist_subsys_file, vendor_persist_type, file_type;
